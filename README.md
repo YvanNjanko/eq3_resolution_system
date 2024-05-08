@@ -1,6 +1,6 @@
 # eq3_resolution_system
 
-A new Flutter project.
+ceci est un systeme de résolution d'équation du 3e degré dans R
 
 ## Getting Started
 
