@@ -117,28 +117,30 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildSolutionDataTable() {
-    return DataTable(
-      columns: const [
-        DataColumn(
-          label: Text(
-            'Solution(s) de l equation',
-            style: TextStyle(color: Colors.white),
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Solution :',
+          style: TextStyle(color: Colors.white),
         ),
+        SizedBox(height: 10.0),
+        if (_solutions != null) ..._buildSolutionText(),
       ],
-      rows: _solutions!.asMap().entries.map((entry) {
-        final index = entry.key;
-        final solution = entry.value;
-        return DataRow(cells: [
-          DataCell(
-            Text(
-              'x${index + 1} : ${(solution % 1 == 0 ? solution.toInt() : solution.toStringAsFixed(2)).toString()}',
-              style: const TextStyle(color: Colors.white),
-            ),
-          )
-        ]);
-      }).toList(),
     );
+  }
+
+  List<Widget> _buildSolutionText() {
+    final solutionWidgets = <Widget>[];
+    for (int i = 0; i < _solutions!.length; i++) {
+      solutionWidgets.add(
+        Text(
+          'x${i + 1} = ${(_solutions![i] % 1 == 0 ? _solutions![i].toInt() : _solutions![i].toStringAsFixed(2))}',
+          style: TextStyle(color: Colors.white),
+        ),
+      );
+    }
+    return solutionWidgets;
   }
 
   void _showErrorDialog() {
