@@ -46,12 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildButton(
-                  const Icon(Icons.air, color: Colors.white),
                   const Text('Résoudre l equation'),
                   _solveEquation,
                 ),
                 const SizedBox(width: 10.0),
-                
               ],
             ),
             const SizedBox(height: 20.0),
@@ -77,11 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildButton(Icon icon, Text label, void Function()? onPressed) {
+  Widget _buildButton(Text label, void Function()? onPressed) {
     return Expanded(
-      child: ElevatedButton.icon(
-        icon: icon,
-        label: label,
+      child: ElevatedButton(
+        child: label,
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
@@ -150,8 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Alerte'),
-          content: const Text(
-              'Entrez des valeurs valides'),
+          content: const Text('Entrez des valeurs valides'),
           actions: [
             TextButton(
               child: const Text('Cancel'),
