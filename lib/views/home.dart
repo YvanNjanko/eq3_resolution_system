@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Solution :',
+          'Solution(s) de l equation :',
           style: TextStyle(color: Colors.white),
         ),
         SizedBox(height: 10.0),
