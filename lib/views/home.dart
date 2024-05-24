@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
       columns: const [
         DataColumn(
           label: Text(
-            'Solution',
+            'Solution(s) de l equation',
             style: TextStyle(color: Colors.white),
           ),
         ),
