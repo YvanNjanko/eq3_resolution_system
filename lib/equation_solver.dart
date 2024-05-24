@@ -4,29 +4,36 @@ class EquationSolver {
   static List<double> solveCubic(double a, double b, double c, double d) {
     List<double> solutions = [];
 
-    // Calcul discriminant
-    double delta0 = b * b - 3 * a * c;
-    double delta1 = 2 * b * b * b - 9 * a * b * c + 27 * a * a * d;
+    // Normalisation des coefficients
+    b /= a;
+    c /= a;
+    d /= a;
+
+    // Calcul des valeurs intermédiaires
+    double delta0 = b * b - 3 * c;
+    double delta1 = 2 * b * b * b - 9 * b * c + 27 * d;
+
+    // Calcul du discriminant
     double discriminant = delta1 * delta1 - 4 * delta0 * delta0 * delta0;
 
-    if (discriminant > 0) {
-      double phi = acos(delta1 / (2 * sqrt(delta0 * delta0 * delta0)));
-      double s = 2 * sqrt(delta0);
-      double x1 = (-b + s * cos(phi / 3)) / (3 * a);
-      double x2 = (-b + s * cos((phi + 2 * pi) / 3)) / (3 * a);
-      double x3 = (-b + s * cos((phi + 4 * pi) / 3)) / (3 * a);
-      solutions.addAll([x1, x2, x3]);
+    if (delta0 == 0 && delta1 == 0) {
+      // Tous les coefficients sont égaux, une seule racine réelle triple
+      solutions.add(-b / 3);
+    } else if (discriminant > 0) {
+      // Une seule racine réelle et deux racines complexes
+      num C = pow((delta1 + sqrt(discriminant)) / 2, 1 / 3);
+      solutions.add(-1 / 3 * (b + C + delta0 / C));
     } else if (discriminant == 0) {
-      double x = (-b + pow(delta1.abs(), 1 / 3)) / (3 * a);
-      solutions.add(x);
+      // Trois racines réelles, au moins deux sont égales
+      num C = pow(delta1 / 2, 1 / 3);
+      solutions.add(-1 / 3 * (b + 2 * C));
+      solutions.add(-1 / 3 * (b - C));
     } else {
-      double r = sqrt(-delta0 * delta0 * delta0);
-      double phi = acos(delta1 / (2 * sqrt(delta0 * delta0 * delta0)));
-      double s = 2 * sqrt(delta0);
-      double x1 = (-b + s * cos(phi / 3)) / (3 * a);
-      double x2 = (-b + s * cos((phi + 2 * pi) / 3)) / (3 * a);
-      double x3 = (-b + s * cos((phi + 4 * pi) / 3)) / (3 * a);
-      solutions.addAll([x1, x2, x3]);
+      // Trois racines réelles distinctes
+      double theta = acos(delta1 / (2 * sqrt(delta0 * delta0 * delta0)));
+      solutions.add(-2 * sqrt(delta0) * cos(theta / 3) - b / 3);
+      solutions.add(-2 * sqrt(delta0) * cos((theta + 2 * pi) / 3) - b / 3);
+      solutions.add(-2 * sqrt(delta0) * cos((theta + 4 * pi) / 3) - b / 3);
     }
 
     return solutions;
